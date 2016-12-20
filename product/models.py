@@ -5,7 +5,7 @@ class InfoProd(models.Model):
     prod_count = models.IntegerField(default=0)
     prod_address = models.CharField(max_length=200)
     prod_date = models.DateTimeField('order date')
-    pdor_status = models.BooleanField()
+    prod_status = models.BooleanField()
 
     def __str__(self):
         return self.prod_title

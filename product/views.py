@@ -22,7 +22,7 @@ def prod_new(request):
             prod = form.save()
             prod.save()
             #return HttpResponseRedirect(reverse('product.views.prod_list'))
-            return redirect('product.views.prod_list')
+            return redirect('prod_list')
     else:
         form = ProdForm()
     return render(request, 'product/prod_edit.html', {'form': form})

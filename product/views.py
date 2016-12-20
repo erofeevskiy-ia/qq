@@ -25,7 +25,7 @@ def prod_new(request):
             return redirect('prod_list')
     else:
         form = ProdForm()
-    return render(request, 'product/prod_edit.html', {'form': form})
+    return render(request, 'product/prod_edit.html', {'form': form, 'isNew': True})
 
 def prod_edit(request, pk):
     prod = get_object_or_404(InfoProd, pk=pk)
@@ -37,7 +37,7 @@ def prod_edit(request, pk):
             return redirect('prod_detail', pk=prod.pk)
     else:
         form = ProdForm(instance=prod)
-    return render(request, 'product/prod_edit.html', {'form': form})
+    return render(request, 'product/prod_edit.html', {'form': form, 'isNew': False})
 
 def prod_remove(request, pk):
     if request.method == "GET":

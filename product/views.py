@@ -1,20 +1,22 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from  .models import InfoProd
-from  .forms import ProdForm
+from .models import InfoProd
+from .forms import ProdForm
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-
 
 
 def prod_list(request):
     prods = InfoProd.objects.all().order_by('prod_date')
     return render(request, 'product/prod_list.html', {'prods': prods})
 
+
 def prod_detail(request, pk):
     prod = get_object_or_404(InfoProd, pk=pk)
     return render(request, 'product/prod_detail.html', {'prod': prod})
 
 
+@login_required(login_url='/auth/authen', redirect_field_name=None)
 def prod_new(request):
     if request.method == "POST":
         form = ProdForm(request.POST)
@@ -27,6 +29,8 @@ def prod_new(request):
         form = ProdForm()
     return render(request, 'product/prod_edit.html', {'form': form, 'isNew': True})
 
+
+@login_required(login_url='/auth/authen', redirect_field_name=None)
 def prod_edit(request, pk):
     prod = get_object_or_404(InfoProd, pk=pk)
     if request.method == "POST":
@@ -39,6 +43,8 @@ def prod_edit(request, pk):
         form = ProdForm(instance=prod)
     return render(request, 'product/prod_edit.html', {'form': form, 'isNew': False})
 
+
+@login_required(login_url='/auth/authen', redirect_field_name=None)
 def prod_remove(request, pk):
     if request.method == "GET":
         prod = get_object_or_404(InfoProd, pk=pk)
